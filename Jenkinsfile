@@ -9,8 +9,17 @@ node {
         }
         stage('Deploy') {
                 sh './jenkins/scripts/deliver.sh'
-                input(message: "Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)")
-                sh './jenkins/scripts/kill.sh'            
+                input(
+                    message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)',
+                    parameter: [
+                        [$class: 'ChoiceParameterDefinition', name:'userInput', choices: ['Proceed', 'Abort']]
+                    ]
+                )
+                if (userInput == 'Proceed') {
+                sh './jenkins/scripts/kill.sh'
+                } else {
+                    error('Pipeline aborted by user')
+                }            
         }
     }
 }
