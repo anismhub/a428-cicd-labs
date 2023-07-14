@@ -17,7 +17,7 @@ node {
                 )
                 if (userInput == 'Proceed') {
                 sh './jenkins/scripts/kill.sh'
-                }        
+               }        
         }
     }
 }
