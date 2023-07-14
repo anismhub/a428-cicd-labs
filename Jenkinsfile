@@ -17,7 +17,9 @@ node {
                 )
                 if (userInput == 'Proceed') {
                 sh './jenkins/scripts/kill.sh'
-               }        
+                } else {
+                    error('Pipeline aborted by user')
+                }            
         }
     }
 }
